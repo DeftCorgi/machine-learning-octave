@@ -12,15 +12,8 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
-plot(X(y==1), 'r+')
-plot(X(y==0), 'ko');
-
-
-
-
-
-
-
+plot(X(y==1), X(y==1, 2), 'r+')
+plot(X(y==0), X(y==0, 2), 'ko');
 
 % =========================================================================
 

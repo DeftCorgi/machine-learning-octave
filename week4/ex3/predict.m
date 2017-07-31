@@ -7,29 +7,20 @@ function p = predict(Theta1, Theta2, X)
 m = size(X, 1);
 num_labels = size(Theta2, 1);
 
+% add ones column vector to X
+X = [ones(size(X, 1), 1) X];
+
 % You need to return the following variables correctly 
 p = zeros(size(X, 1), 1);
 
-% ====================== YOUR CODE HERE ======================
-% Instructions: Complete the following code to make predictions using
-%               your learned neural network. You should set p to a 
-%               vector containing labels between 1 to num_labels.
-%
-% Hint: The max function might come in useful. In particular, the max
-%       function can also return the index of the max element, for more
-%       information see 'help max'. If your examples are in rows, then, you
-%       can use max(A, [], 2) to obtain the max for each row.
-%
+% The hidden layer or layer_2
+layer_2 = sigmoid(Theta1 * X');
 
+% add ones column vector to layer_2
+layer_2 = [ones(size(layer_2, 2), 1)'; layer_2];
 
+% the output layer or layer_3 also contains our hypothesis values
+layer_3 = layer_2' * Theta2';
 
-
-
-
-
-
-
-% =========================================================================
-
-
+[temp, p] = max(layer_3, [], 2);
 end

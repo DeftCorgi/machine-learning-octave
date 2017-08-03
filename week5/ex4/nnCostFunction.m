@@ -62,8 +62,26 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Feed forward
 
+% Add ones to X
+X = [ones(size(X, 1), 1) X];
 
+% hidden layer
+Z2 = X * Theta1'; % m x hl
+A2 = [ones(size(Z2, 1), 1) sigmoid(Z2)];
+
+% output layer
+H = sigmoid(A2 * Theta2');
+
+% one hot encoded y
+I = eye(num_labels);
+Y = I(y, :);
+
+Theta1(:, 1) = 0;
+Theta2(:, 1) = 0;
+regularization = lambda / (2 * m) * (sum(sum(Theta1.^2)) + sum(sum(Theta2.^2)));
+J = (1 / m) * sum(sum((-Y) .* log(H) - (1-Y).*log(1 - H), 2)) + regularization;
 
 
 

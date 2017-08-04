@@ -83,20 +83,14 @@ Theta2(:, 1) = 0;
 regularization = lambda / (2 * m) * (sum(sum(Theta1.^2)) + sum(sum(Theta2.^2)));
 J = (1 / m) * sum(sum((-Y) .* log(H) - (1-Y).*log(1 - H), 2)) + regularization;
 
+Sigma3 = H - Y;
+Sigma2 = (Sigma3 * Theta2(:,2:end)) .* sigmoidGradient(Z2);
 
+Delta1 = Sigma2' * X;
+Delta2 = Sigma3' * A2;
 
-
-
-
-
-
-
-
-
-
-
-
-
+Theta1_grad = 1 / m * Delta1;
+Theta2_grad = 1 / m * Delta2;
 
 % -------------------------------------------------------------
 

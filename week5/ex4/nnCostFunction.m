@@ -78,8 +78,10 @@ H = sigmoid(A2 * Theta2');
 I = eye(num_labels);
 Y = I(y, :);
 
+% Don't count bias unit in calculations
 Theta1(:, 1) = 0;
 Theta2(:, 1) = 0;
+
 regularization = lambda / (2 * m) * (sum(sum(Theta1.^2)) + sum(sum(Theta2.^2)));
 J = (1 / m) * sum(sum((-Y) .* log(H) - (1-Y).*log(1 - H), 2)) + regularization;
 
@@ -89,8 +91,13 @@ Sigma2 = (Sigma3 * Theta2(:,2:end)) .* sigmoidGradient(Z2);
 Delta1 = Sigma2' * X;
 Delta2 = Sigma3' * A2;
 
-Theta1_grad = 1 / m * Delta1;
-Theta2_grad = 1 / m * Delta2;
+Reg1 = lambda / m * Theta1;
+Reg2 = lambda / m * Theta2;
+
+Theta1_grad = 1 / m * Delta1 + Reg1;
+Theta2_grad = 1 / m * Delta2 + Reg2;
+
+
 
 % -------------------------------------------------------------
 
